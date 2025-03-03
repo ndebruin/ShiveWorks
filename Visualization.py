@@ -67,7 +67,7 @@ def export_to_csv():
     csv_path = os.path.join(output_folder, "sensor_data.csv")
     with open(csv_path, "w", newline="") as file:
         writer = csv.writer(file)
-        headers = ["Time"] + [f"Sensor {i}" for i in range(NUM_TOPICS)]
+        headers = ["Time"] + [f"Segment {i}" for i in range(NUM_TOPICS)]
         writer.writerow(headers)
         for i in range(len(time_data)):
             row = [time_data[i]] + [data[j][i] if i < len(data[j]) else "" for j in range(NUM_TOPICS)]
@@ -81,9 +81,9 @@ def update_2d_plot():
     ax2d.clear()
     for key, values in data.items():
         if values:
-            ax2d.plot(time_data[:len(values)], values, label=f"Sensor {key}")
+            ax2d.plot(time_data[:len(values)], values, label=f"Segment {key}")
     ax2d.set_xlabel("Time")
-    ax2d.set_ylabel("Sensor Values")
+    ax2d.set_ylabel("Segment Angle")
     ax2d.legend()
     plt.draw()
 
@@ -101,9 +101,9 @@ def update_3d_plot():
     if np.any(Z): # this protects us at program startup from it crashing
         ax3d.plot_surface(X, Y, Z, cmap=cm.viridis)
         data_start = True
-    ax3d.set_xlabel("Sensor")
+    ax3d.set_xlabel("Segment")
     ax3d.set_ylabel("Time")
-    ax3d.set_zlabel("Displacement")
+    ax3d.set_zlabel("Angular Displacement")
     plt.draw()
 
 def live_update():

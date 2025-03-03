@@ -4,3 +4,4 @@ credentials.h
 # platformio.ini
 Actuation_data
 segmentsID.csv
+output_*
